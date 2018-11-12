@@ -12,3 +12,8 @@
 */
 
 Route::get('/', 'PagesController@root')->name('root');
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function() {
+
+});
