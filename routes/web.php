@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('orders', 'OrdersController@index')->name('orders.index');
 
     Route::get('orders/check/{order}', 'OrdersController@check')->name('orders.check');
+    Route::get('orders/bill', 'OrdersController@bill')->name('orders.bill');
 
     Route::get('orders/{user_address}', 'OrdersController@create')->name('orders.create');
     Route::post('orders', 'OrdersController@store')->name('orders.store');

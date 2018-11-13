@@ -26,11 +26,11 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2">成本价</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" name="cost_price[{{ $key }}]" value="" pattern="[0-9]*">
+                                    <input type="number" class="form-control" name="cost_price[{{ $key }}]" value="" pattern="[0-9]*">
                                 </div>
                                 <label class="control-label col-sm-2">售价</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" name="sell_price[{{ $key }}]" value="" pattern="[0-9]*">
+                                    <input type="number" class="form-control" name="sell_price[{{ $key }}]" value="" pattern="[0-9]*">
                                 </div>
                             </div>
                         @endforeach

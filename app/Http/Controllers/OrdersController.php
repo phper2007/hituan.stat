@@ -27,6 +27,21 @@ class OrdersController extends Controller
         ]);
     }
 
+    public function bill()
+    {
+        $productModel = (new Product());
+        $maxDate = $productModel->getMaxDate();
+
+        $orders = (new Order())
+            ->where('product_date', $maxDate)
+            ->orderBy('id', 'desc')->get();
+
+
+        return view('orders.bill', [
+            'orders' => $orders,
+        ]);
+    }
+
     public function create(UserAddress $user_address)
     {
         $order = new Order();

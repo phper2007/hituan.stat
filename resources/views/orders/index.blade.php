@@ -7,6 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     订单列表
+                    <a href="{{ route('orders.bill') }}" class="pull-right">报单</a>
                 </div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped">
