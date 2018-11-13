@@ -15,5 +15,35 @@ Route::get('/', 'PagesController@root')->name('root');
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
+    //收货地址
+    Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index');
 
+    Route::match(['get', 'post'] ,'user_addresses/standard', 'UserAddressesController@standard')->name('user_addresses.standard');
+
+    Route::get('user_addresses/create', 'UserAddressesController@create')->name('user_addresses.create');
+    Route::post('user_addresses', 'UserAddressesController@store')->name('user_addresses.store');
+    Route::get('user_addresses/{user_address}', 'UserAddressesController@edit')->name('user_addresses.edit');
+    Route::put('user_addresses/{user_address}', 'UserAddressesController@update')->name('user_addresses.update');
+    Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
+
+    //产品信息
+    Route::get('products', 'ProductsController@index')->name('products.index');
+    Route::get('products/import', 'ProductsController@import')->name('products.import');
+    Route::post('products/import_analysis', 'ProductsController@importAnalysis')->name('products.import_analysis');
+    Route::post('products/store_import', 'ProductsController@storeImport')->name('products.store_import');
+    Route::get('products/create', 'ProductsController@create')->name('products.create');
+    Route::post('products', 'ProductsController@store')->name('products.store');
+    Route::get('products/{product}', 'ProductsController@edit')->name('products.edit');
+    Route::put('products/{product}', 'ProductsController@update')->name('products.update');
+    Route::delete('products/{product}', 'ProductsController@destroy')->name('products.destroy');
+
+    //订单信息
+    Route::get('orders', 'OrdersController@index')->name('orders.index');
+
+    Route::get('orders/check/{order}', 'OrdersController@check')->name('orders.check');
+
+    Route::get('orders/{user_address}', 'OrdersController@create')->name('orders.create');
+    Route::post('orders', 'OrdersController@store')->name('orders.store');
+
+    Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
 });

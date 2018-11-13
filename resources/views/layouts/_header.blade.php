@@ -28,6 +28,9 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ route('user_addresses.index') }}">收货地址</a></li>
+                                <li><a href="{{ route('orders.index') }}">订单</a></li>
+                                <li><a href="{{ route('products.index') }}">产品信息</a></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
