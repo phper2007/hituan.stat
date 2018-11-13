@@ -42,8 +42,8 @@ class ProductsController extends Controller
 
             if(!$groupDate && preg_match("/([0-9]{1,2})\.([0-9]{1,2}).*/", $val, $matches))
             {
-                print_r($matches);
-                print_r("<hr />");
+                /*print_r($matches);
+                print_r("<hr />");*/
                 $groupDate = mktime(0, 0, 0, $matches[1], $matches[2], date('Y'));
             }
             elseif ($groupDate && preg_match("/{$productSerialNumber[$num]}(.*)/", $val, $matches))
