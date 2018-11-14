@@ -7,7 +7,7 @@ class ProductRequest extends Request
     public function rules()
     {
         /*$rules = [
-            'product_date'          => 'required',
+            'group_date'          => 'required',
             'name'      => 'required',
             'sell_price'  => 'required',
             'cost_price' => 'required',

@@ -28,8 +28,11 @@ Route::group(['middleware' => 'auth'], function() {
 
     //产品信息
     Route::get('products', 'ProductsController@index')->name('products.index');
-    Route::get('products/import', 'ProductsController@import')->name('products.import');
-    Route::post('products/import_analysis', 'ProductsController@importAnalysis')->name('products.import_analysis');
+    Route::get('products/import_offer', 'ProductsController@importOffer')->name('products.import_offer');
+    Route::post('products/import_offer_analysis', 'ProductsController@importOfferAnalysis')->name('products.import_offer_analysis');
+
+    Route::get('products/import_solitaire', 'ProductsController@importSolitaire')->name('products.import_solitaire');
+    Route::post('products/import_solitaire_analysis', 'ProductsController@importSolitaireAnalysis')->name('products.import_solitaire_analysis');
     Route::post('products/store_import', 'ProductsController@storeImport')->name('products.store_import');
     Route::get('products/create', 'ProductsController@create')->name('products.create');
     Route::post('products', 'ProductsController@store')->name('products.store');

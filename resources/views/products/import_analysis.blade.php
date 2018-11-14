@@ -24,13 +24,29 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2">成本价</label>
+                                <label class="control-label col-sm-2">经销价</label>
                                 <div class="col-sm-3">
-                                    <input type="number" class="form-control" name="cost_price[{{ $key }}]" value="" pattern="[0-9]*">
+                                    <input type="number" class="form-control" name="cost_price[{{ $key }}]" value="{{ $costPrice[$key] }}" pattern="[0-9]*">
                                 </div>
-                                <label class="control-label col-sm-2">售价</label>
+                                <label class="control-label col-sm-2">团购价</label>
                                 <div class="col-sm-3">
-                                    <input type="number" class="form-control" name="sell_price[{{ $key }}]" value="" pattern="[0-9]*">
+                                    <input type="number" class="form-control" name="sell_price[{{ $key }}]" value="{{ $sellPrice[$key] }}" pattern="[0-9]*">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">报单格式</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="order_format[{{ $key }}]" value="{{ $orderFormat[$key] }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">每单数量</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control" name="product_number[{{ $key }}]" value="{{ $productNumber[$key] }}" pattern="[0-9]*">
+                                </div>
+                                <label class="control-label col-sm-2">商品单位</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="product_unit[{{ $key }}]" value="{{ $productUnit[$key] }}">
                                 </div>
                             </div>
                         @endforeach

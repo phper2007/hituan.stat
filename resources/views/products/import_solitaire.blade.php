@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', '导入产品信息')
+@section('title', '导入接龙信息')
 
 @section('content')
     <div class="row">
@@ -7,12 +7,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2 class="text-center">
-                        导入产品信息
+                        导入接龙信息
                     </h2>
                 </div>
                 <div class="panel-body">
                     @include('layouts._error')
-                    <form class="form-horizontal" role="form" action="{{ route('products.import_analysis') }}" target="_blank" method="post">
+                    <form class="form-horizontal" role="form" action="{{ route('products.import_solitaire_analysis') }}" target="_blank" method="post">
                     <!-- 引入 csrf token 字段 -->
                     {{ csrf_field() }}
                         <div class="form-group">

@@ -33,7 +33,7 @@ class OrdersController extends Controller
         $maxDate = $productModel->getMaxDate();
 
         $orders = (new Order())
-            ->where('product_date', $maxDate)
+            ->where('group_date', $maxDate)
             ->orderBy('id', 'desc')->get();
 
 
@@ -68,7 +68,7 @@ class OrdersController extends Controller
         $userAddress = (new UserAddress())->find($data['address_id']);
         $product = (new Product())->find($data['product_id']);
 
-        $data['product_date'] = $product['product_date'];
+        $data['group_date'] = $product['group_date'];
         $data['product_name'] = $product['name'];
         $data['sell_price'] = $product['sell_price'];
         $data['cost_price'] = $product['cost_price'];

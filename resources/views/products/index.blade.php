@@ -8,7 +8,8 @@
                 <div class="panel-heading">
                     产品信息列表
                     {{--<a href="{{ route('products.create') }}" class="pull-right">新增产品&nbsp;&nbsp;</a>--}}
-                    <a href="{{ route('products.import') }}" class="pull-right">导入接龙信息&nbsp;&nbsp;</a>
+                    <a href="{{ route('products.import_offer') }}" class="pull-right">导入内部报价&nbsp;&nbsp;</a>
+                    <a href="{{ route('products.import_solitaire') }}" class="pull-right">导入接龙信息&nbsp;&nbsp;</a>
                 </div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped">
@@ -24,7 +25,7 @@
                         <tbody>
                         @foreach($productList as $product)
                             <tr>
-                                <td>{{ $product->product_date }}</td>
+                                <td>{{ $product->group_date }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->cost_price }}</td>
                                 <td>{{ $product->sell_price }}</td><td>

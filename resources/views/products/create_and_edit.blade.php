@@ -23,7 +23,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2">团购日期</label>
                                 <div class="col-sm-9">
-                                    {{$product->product_date}}
+                                    {{$product->group_date}}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -42,6 +42,24 @@
                                 <label class="control-label col-sm-2">售价</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" name="sell_price" value="{{ old('sell_price', $product->sell_price) }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">报单格式</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="order_format" value="{{ old('order_format', $product->order_format) }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">每单数量</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" name="product_number" value="{{ old('product_number', $product->product_number) }}" pattern="[0-9]*">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">商品单位</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="product_unit" value="{{ old('product_unit', $product->product_unit) }}">
                                 </div>
                             </div>
                             <div class="form-group text-center">
