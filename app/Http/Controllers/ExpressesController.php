@@ -93,7 +93,10 @@ class ExpressesController extends Controller
         /*print_r("<br >");
         print_r($data);*/
 
-        $expressList = $expressModel->where('contact_phone', $user_address->contact_phone)->get();
+        $expressList = $expressModel
+            ->where('contact_phone', $user_address->contact_phone)
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('expresses.search', [
             'address' => $user_address,
