@@ -7,6 +7,9 @@ return [
 
     'hituan' => [
         'searchUrl' => 'http://ht.haituan2017.com/'
+    ],
 
+    'yichadan' => [
+        'detailUrl' => 'http://vip.yichadan.com/query/json'
     ]
 ];

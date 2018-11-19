@@ -53,4 +53,5 @@ Route::group(['middleware' => 'auth'], function() {
 
     //快递
     Route::get('expresses/search/{user_address}', 'ExpressesController@search')->name('expresses.search');
+    Route::get('expresses/analysis', 'ExpressesController@analysis')->name('expresses.analysis');
 });

@@ -31,6 +31,11 @@ return [
         3 => 3,
         4 => 4,
         5 => 5,
-    ]
+    ],
+
+    'expressStatusDict' => [
+        'transit' => '运输中',
+        'signed' => '已签收',
+    ],
 ];
 

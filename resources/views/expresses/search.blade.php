@@ -13,27 +13,36 @@
                     {{$address->full_address}}
                 </div>
 
-                <h2>共查询到{{$expressData['count']}}条快递</h2>
+                <h2>共查询到{{$expressList->count()}}条快递</h2>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>商品名称</th>
+                            <th>快递公司</th>
+                            <th>快递号</th>
+                            <th>快递状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if($expressData['data'])
-                            @foreach($expressData['data'] as $item)
-                                <tr>
-                                    <td>{{ $item['text'] }}</td>
-                                    <td>
-                                        <a href="{{ $item['url'] }}" target="_blank" class="btn btn-info">打开新窗口</a>
-                                        <button type="button" class="viewExpress" href="{{ $item['url'] }}">查看详细</button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
+                        @foreach($expressList as $item)
+                            <tr>
+                                <td>{{ $item['product_name'] }}</td>
+                                <td>{{ $item['company_name'] }}</td>
+                                <td>{{ $item['express_no'] }}</td>
+                                <td>
+                                    @if($item['status'] == 'signed')
+                                        <span class="text-success">{{ $expressStatusDict[$item['status']] }}</span>
+                                    @else
+                                        <span class="text-danger">{{ $expressStatusDict[$item['status']] }}</span>
+                                    @endif
+                                <td>
+                                    <a href="{{ $item['website_url'] }}" target="_blank" class="btn btn-info">打开新窗口</a>
+                                    <button type="button" class="viewExpress" href="{{ $item['website_url'] }}">查看详细</button>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
