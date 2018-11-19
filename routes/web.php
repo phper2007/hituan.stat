@@ -50,4 +50,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('orders', 'OrdersController@store')->name('orders.store');
 
     Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
+
+    //快递
+    Route::get('expresses/search/{user_address}', 'ExpressesController@search')->name('expresses.search');
 });

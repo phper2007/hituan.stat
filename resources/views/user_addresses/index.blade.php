@@ -26,6 +26,7 @@
                                 <td>{{ $address->contact_name }}</td>
                                 <td>{{ $address->full_address }}</td>
                                 <td>{{ $address->contact_phone }}</td><td>
+                                    <a href="{{ route('expresses.search', ['user_address' => $address->id]) }}" target="_blank" class="btn btn-info">快递查询</a>
                                     <a href="{{ route('orders.create', ['user_address' => $address->id]) }}" class="btn btn-info">下单</a>
                                     <a href="{{ route('user_addresses.edit', ['user_address' => $address->id]) }}" class="btn btn-primary">修改</a>
                                     <!-- 把之前删除按钮的表单替换成这个按钮，data-id 属性保存了这个地址的 id，在 js 里会用到 -->
