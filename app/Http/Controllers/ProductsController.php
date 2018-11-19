@@ -219,10 +219,11 @@ class ProductsController extends Controller
         $productNumber = $request->input('product_number');
         $productUnit = $request->input('product_unit');
 
-        $data = [];
+        $productModel = new Product();
+
         foreach ($names as $key => $name)
         {
-            $data[] = [
+            $data = [
                 'group_date' => date('Y-m-d', $groupDate),
                 'name' => $name,
                 'sell_price' => $sellPrice[$key],
@@ -231,9 +232,10 @@ class ProductsController extends Controller
                 'product_number' => $productNumber[$key],
                 'product_unit' => $productUnit[$key],
             ];
+
+            $result = $productModel->create($data);
         }
 
-        $result = (new Product())->insert($data);
 
         //print_r($result);
 

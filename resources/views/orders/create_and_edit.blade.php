@@ -35,23 +35,28 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2">购买数量</label>
+                                <label class="control-label col-sm-2">购买份数</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="sell_count" value="{{ old('sell_count', $order->sell_count) }}">
+                                    {!! form_option($orderCountDict, old('sell_count', $order->sell_count), 'sell_count') !!}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2">产品详细1</label>
+                                <label class="control-label col-sm-2">额外运费</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="detail_name1" value="{{ old('detail_name1', $order->detail_name1) }}">
+                                    <input type="text" class="form-control" name="freight" value="{{ old('freight', $order->freight) }}">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">产品详细2</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="detail_name2" value="{{ old('detail_name2', $order->detail_name2) }}">
+                            @foreach(range(1,5) as $num)
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">产品详细{{$num}}</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="detail_name{{$num}}" value="{{ old('detail_name'.$num, $order->{'detail_name'.$num}) }}">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="detail_count{{$num}}" value="{{ old('detail_count'.$num, $order->{'detail_count'.$num}) }}">
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-primary">提交</button>
                             </div>

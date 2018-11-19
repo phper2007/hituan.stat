@@ -61,7 +61,7 @@ class UserAddressesController extends Controller
                 $errors[] = '无详细地址';
             }
 
-            if($data)
+            if(!$errors)
             {
                 //避免数字结尾
                 if(preg_match('/^.*[0-9]$/', $data['site']))

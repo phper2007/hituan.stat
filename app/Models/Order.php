@@ -20,11 +20,22 @@ class Order extends Model
         'sell_count',
         'sell_price',
         'cost_price',
+        'freight',
         'detail_name1',
         'detail_name2',
         'detail_name3',
+        'detail_name4',
+        'detail_name5',
+        'detail_count1',
+        'detail_count2',
+        'detail_count3',
+        'detail_count4',
+        'detail_count5',
+        'express_no',
+        'express_name',
+        'express_signed',
+        'is_msg',
     ];
-
 
     public function getFullAddressAttribute()
     {
@@ -34,7 +45,18 @@ class Order extends Model
     public function getCheckInfoAttribute()
     {
         $string = "{$this->contact_name}。{$this->contact_phone}。{$this->province}{$this->city}{$this->district}{$this->address}。";
-        $string .= "{$this->product_name}。{$this->sell_count}";
+        $nameArr = [];
+        for ($i=1; $i<=5; $i++)
+        {
+            $detailName = 'detail_name'.$i;
+            $countName = 'detail_count'.$i;
+            if($this->{$detailName})
+            {
+                $nameArr[] = sprintf($this->{$detailName}, $this->{$countName});
+            }
+        }
+
+        $string .= implode('，', $nameArr) . "。{$this->sell_count}";
         return $string;
     }
 }

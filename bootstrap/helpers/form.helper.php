@@ -103,7 +103,7 @@ function form_option($options = array(), $selected = FALSE, $name = NULL, $defau
 
     if ($name)
     {
-        $option_str =  "<select name=\"{$name}\"{$extra}>
+        $option_str =  "<select name=\"{$name}\"{$extra} class=\"form-control\">
         {$option_str}
         </select>";
     }

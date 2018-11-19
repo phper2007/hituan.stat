@@ -17,6 +17,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="groupDate" value="{{$groupDate}}">
                         @foreach($productList as $key => $name)
+                            <div class="row @if($key % 2 === 0) bg-success @endif">
                             <div class="form-group">
                                 <label class="control-label col-sm-2">产品名称:{{ $key }}</label>
                                 <div class="col-sm-9">
@@ -48,6 +49,7 @@
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" name="product_unit[{{ $key }}]" value="{{ $productUnit[$key] }}">
                                 </div>
+                            </div>
                             </div>
                         @endforeach
                             <div class="form-group text-center">

@@ -32,13 +32,43 @@ class OrdersController extends Controller
         $productModel = (new Product());
         $maxDate = $productModel->getMaxDate();
 
+        $productList = $productModel->where('group_date', $maxDate)->get()->keyBy('id')->toArray();
+
         $orders = (new Order())
             ->where('group_date', $maxDate)
             ->orderBy('id', 'desc')->get();
 
+        $today = [
+            'sellPrice' => 0,
+            'profit' => 0,
+            'freight' => 0,
+            'sellCount' => 0,
+        ];
+
+        foreach ($orders as $order)
+        {
+            $today['sellPrice'] += $order['sell_price'] + $order['freight'];
+            $today['profit'] += $order['sell_price'] - $order['cost_price'];
+            $today['freight'] += $order['freight'];
+            $today['sellCount'] += $order['sell_count'];
+        }
+
+        $orderGroup = $orders->groupBy('product_id');
+
+        $productSum = [];
+        foreach($orderGroup as $productId => $groupOrder)
+        {
+            $sellCount = $groupOrder->sum('sell_count');
+            $productNumber = $productList[$productId]['product_number'];
+            $productSum[$productId] = $sellCount * $productNumber;
+        }
 
         return view('orders.bill', [
-            'orders' => $orders,
+            'maxDate' => $maxDate,
+            'orderGroup' => $orderGroup,
+            'today' => $today,
+            'productSum' => $productSum,
+            'productRelate' => $this->productRelate,
         ]);
     }
 
@@ -51,6 +81,7 @@ class OrdersController extends Controller
             'address' => $user_address,
             'productRelate' => $this->productRelate,
             'order' => $order,
+            'orderCountDict' => config('project.orderCountDict'),
         ]);
     }
 
@@ -60,8 +91,17 @@ class OrdersController extends Controller
             'address_id',
             'product_id',
             'sell_count',
+            'freight',
             'detail_name1',
             'detail_name2',
+            'detail_name3',
+            'detail_name4',
+            'detail_name5',
+            'detail_count1',
+            'detail_count2',
+            'detail_count3',
+            'detail_count4',
+            'detail_count5',
         ]);
 
         //完善信息
@@ -70,8 +110,8 @@ class OrdersController extends Controller
 
         $data['group_date'] = $product['group_date'];
         $data['product_name'] = $product['name'];
-        $data['sell_price'] = $product['sell_price'];
-        $data['cost_price'] = $product['cost_price'];
+        $data['sell_price'] = $product['sell_price']*$data['sell_count'];
+        $data['cost_price'] = $product['cost_price']*$data['sell_count'];
         $data['province'] = $userAddress['province'];
         $data['city'] = $userAddress['city'];
         $data['district'] = $userAddress['district'];
@@ -79,13 +119,15 @@ class OrdersController extends Controller
         $data['contact_name'] = $userAddress['contact_name'];
         $data['contact_phone'] = $userAddress['contact_phone'];
 
-        $data['detail_name3'] = '';
-        $data['detail_name1'] = $data['detail_name1'] ? $data['detail_name1'] : '';
-        $data['detail_name2'] = $data['detail_name2'] ? $data['detail_name2'] : '';
+        if(empty($data['detail_name1']))
+        {
+            $data['detail_count1'] = $data['detail_count1'] ? $data['detail_count1'] : $product['product_number']*$data['sell_count'];
+            $data['detail_name1'] = $product['order_format'];
+        }
 
-        $id = (new Order())->insertGetId($data);
+        $order = (new Order())->create($data);
 
-        return redirect()->route('orders.check', ['order' => $id]);
+        return redirect()->route('orders.check', ['order' => $order->id]);
     }
 
     public function check(Order $order)
