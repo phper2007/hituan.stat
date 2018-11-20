@@ -46,6 +46,7 @@ class Order extends Model
     {
         $string = "{$this->contact_name}。{$this->contact_phone}。{$this->province}{$this->city}{$this->district}{$this->address}。";
         $nameArr = [];
+        $sellCount = 0;
         for ($i=1; $i<=5; $i++)
         {
             $detailName = 'detail_name'.$i;
@@ -53,10 +54,11 @@ class Order extends Model
             if($this->{$detailName})
             {
                 $nameArr[] = sprintf($this->{$detailName}, $this->{$countName});
+                $sellCount += $this->{$countName};
             }
         }
 
-        $string .= implode('，', $nameArr) . "。{$this->sell_count}";
+        $string .= implode('，', $nameArr) . "。{$sellCount}";
         return $string;
     }
 }

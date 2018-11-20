@@ -41,6 +41,15 @@ class ExpressesController extends Controller
 
         if($expressData['count'] && $expressData['data'])
         {
+            if($expressData['count'] == 1)
+            {
+                $expressData['data'] = [
+                    [
+                        'url' => $expressData['data'][0]
+                    ]
+                ];
+            }
+
             $expressData['data'] = array_reverse($expressData['data']);
             foreach ($expressData['data'] as $item)
             {
@@ -53,8 +62,9 @@ class ExpressesController extends Controller
                     $res = $client->request('GET', $item['url']);
                     $responseContent = $res->getBody();
 
-                    if(preg_match('/var no = \'([0-9]+)\'/', $responseContent, $matches))
+                    if(preg_match('/var no = \'([0-9]+)\'/', $responseContent, $matches) && preg_match('/\<title\>(.+)\<\/title\>/', $responseContent, $title))
                     {
+
                         $no = $matches[1];
 
                         $url = config('external.yichadan.detailUrl');
@@ -75,7 +85,7 @@ class ExpressesController extends Controller
 
                         $data = [
                             'contact_phone' => $user_address->contact_phone,
-                            'product_name' => $item['product'],
+                            'product_name' => $title[1],
                             'company_code' => $expressData['company']['code'],
                             'company_name' => $expressData['company']['name'],
                             'express_no' => $no,
