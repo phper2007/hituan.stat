@@ -39,7 +39,7 @@ class OrdersController extends Controller
             ->orderBy('id', 'desc')->get();
 
         $today = [
-            'sellPrice' => 0,
+            'costPrice' => 0,
             'profit' => 0,
             'freight' => 0,
             'sellCount' => 0,
@@ -47,8 +47,8 @@ class OrdersController extends Controller
 
         foreach ($orders as $order)
         {
-            $today['sellPrice'] += $order['sell_price'];
-            $today['profit'] += $order['sell_price'] - $order['cost_price'];
+            $today['costPrice'] += $order['cost_price'];
+            $today['profit'] += $order['cost_price'] - $order['cost_price'];
             $today['freight'] += $order['freight'];
             $today['sellCount'] += $order['sell_count'];
         }

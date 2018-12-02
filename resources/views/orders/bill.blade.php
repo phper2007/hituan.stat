@@ -17,7 +17,7 @@
                             @endforeach
                                 <br />
                             {{date('m月d日', strtotime($maxDate))}}<br />
-                            合计金额： {{$today['sellPrice']}}<br />
+                            合计金额： {{$today['costPrice']}}<br />
                             合计单数:{{$today['sellCount']}}<br />
                             今日利润:{{$today['profit']}}<br />
                             -----------------------------------<br />
