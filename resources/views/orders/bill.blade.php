@@ -36,7 +36,7 @@
                     @endforeach
 
                     <p class="text-warning">
-                        今日运费合计：{{$today['freight']}}，已计算到合计金额中。
+                        今日运费合计：{{$today['freight']}}，未计算到合计金额中。
                     </p>
                         <div class="form-group text-center">
                             <a href="{{ route('orders.index') }}" class="btn btn-primary">返回订单信息</a>

@@ -47,7 +47,7 @@ class OrdersController extends Controller
 
         foreach ($orders as $order)
         {
-            $today['sellPrice'] += $order['sell_price'] + $order['freight'];
+            $today['sellPrice'] += $order['sell_price'];
             $today['profit'] += $order['sell_price'] - $order['cost_price'];
             $today['freight'] += $order['freight'];
             $today['sellCount'] += $order['sell_count'];
