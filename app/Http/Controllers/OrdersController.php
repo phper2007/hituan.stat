@@ -68,7 +68,7 @@ class OrdersController extends Controller
             'orderGroup' => $orderGroup,
             'today' => $today,
             'productSum' => $productSum,
-            'productRelate' => $this->productRelate,
+            'productRelate' => $productModel->getOrderFormatByDate($maxDate),
         ]);
     }
 
