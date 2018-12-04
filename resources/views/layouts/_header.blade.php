@@ -16,6 +16,7 @@
                 <li><a href="{{ route('orders.index') }}">订单</a></li>
                 <li><a href="{{ route('user_addresses.index') }}">收货地址</a></li>
                 <li><a href="{{ route('products.index') }}">产品信息</a></li>
+                <li><a href="{{ route('orders.bill') }}">报单</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- 登录注册链接开始 -->

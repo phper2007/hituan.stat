@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('orders/{user_address}', 'OrdersController@create')->name('orders.create');
     Route::post('orders', 'OrdersController@store')->name('orders.store');
 
-    Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
+    Route::delete('orders/{order}', 'OrdersController@destroy')->name('orders.destroy');
 
     //快递
     Route::get('expresses/search/{user_address}', 'ExpressesController@search')->name('expresses.search');

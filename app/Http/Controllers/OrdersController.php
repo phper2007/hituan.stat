@@ -154,9 +154,9 @@ class OrdersController extends Controller
         return redirect()->route('user_addresses.index');
     }
 
-    public function destroy(UserAddress $user_address)
+    public function destroy(Order $order)
     {
-        $user_address->delete();
+        $order->delete();
         // 把之前的 redirect 改成返回空数组
         return [];
     }
