@@ -49,6 +49,8 @@ class UserAddressesController extends Controller
             $path = $request->file->store('address');
 
             $result = $client->basicAccurate(Storage::get($path));
+
+            return $result;
             $result = array_column($result['words_result'], 'words');
 
             $content = implode("\n", $result);
