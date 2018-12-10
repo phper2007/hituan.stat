@@ -13,6 +13,7 @@ class UserAddress extends Model
         'address',
         'contact_name',
         'contact_phone',
+        'msg_count',
         'last_used_at',
     ];
     protected $dates = ['last_used_at'];

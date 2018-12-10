@@ -11,5 +11,10 @@ return [
 
     'yichadan' => [
         'detailUrl' => 'http://vip.yichadan.com/query/json'
+    ],
+    'baidu' => [
+        'app_id' => env('BAIDU_APP_ID'),
+        'api_key' => env('BAIDU_API_KEY'),
+        'secret_key' => env('BAIDU_SECRET_KEY'),
     ]
 ];

@@ -10,6 +10,15 @@
                     <a href="{{ route('orders.bill') }}" class="pull-right">报单</a>
                 </div>
                 <div class="panel-body">
+                    <form class="form-inline" method="get" action="{{route('orders.index')}}">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="keywords" value="{{$keywords}}">
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>
+                </div>
+
+                <div class="panel-body">
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>

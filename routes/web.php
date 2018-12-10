@@ -17,14 +17,18 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
     //收货地址
     Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index');
+    Route::get('user_addresses/clear', 'UserAddressesController@clear')->name('user_addresses.clear');
 
     Route::match(['get', 'post'] ,'user_addresses/standard', 'UserAddressesController@standard')->name('user_addresses.standard');
+
+    Route::match(['get', 'post'], 'user_addresses/ocr', 'UserAddressesController@ocr')->name('user_addresses.ocr');
 
     Route::get('user_addresses/create', 'UserAddressesController@create')->name('user_addresses.create');
     Route::post('user_addresses', 'UserAddressesController@store')->name('user_addresses.store');
     Route::get('user_addresses/{user_address}', 'UserAddressesController@edit')->name('user_addresses.edit');
     Route::put('user_addresses/{user_address}', 'UserAddressesController@update')->name('user_addresses.update');
     Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
+
 
     //产品信息
     Route::get('products', 'ProductsController@index')->name('products.index');
@@ -41,7 +45,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('products/{product}', 'ProductsController@destroy')->name('products.destroy');
 
     //订单信息
-    Route::get('orders', 'OrdersController@index')->name('orders.index');
+    Route::match(['get', 'post'], 'orders', 'OrdersController@index')->name('orders.index');
 
     Route::get('orders/check/{order}', 'OrdersController@check')->name('orders.check');
     Route::get('orders/bill', 'OrdersController@bill')->name('orders.bill');

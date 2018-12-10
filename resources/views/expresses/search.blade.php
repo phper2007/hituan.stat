@@ -37,6 +37,9 @@
                                     @else
                                         <span class="text-danger">{{ $expressStatusDict[$item['status']] }}</span>
                                     @endif
+                                    @if($item['is_msg'])
+                                            <i class="icon-bell-alt"></i>
+                                    @endif
                                 <td>
                                     <a href="{{ $item['website_url'] }}" target="_blank" class="btn btn-info">打开新窗口</a>
                                     <button type="button" class="viewExpress" href="{{ $item['website_url'] }}">查看详细</button>

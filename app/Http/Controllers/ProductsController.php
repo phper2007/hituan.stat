@@ -78,6 +78,7 @@ class ProductsController extends Controller
         //return;
         $begin = false;
         $num = 1;
+        //echo '<pre>';
         foreach ($arr as $val)
         {
             if (!$begin && strpos($val, '下单格式') !== false)
@@ -87,7 +88,7 @@ class ProductsController extends Controller
             }
             $matches = [];
             //艾灸坐垫1个。1
-            $pattern = "/[0-9]{1,4}([^0-9]*)。([0-9]{1,4})/";
+            $pattern = "/(.*)[0-9]{1,4}([^0-9]*)。([0-9]{1,4})/";
 
             if (preg_match($pattern, $val, $matches))
             {
@@ -98,9 +99,9 @@ class ProductsController extends Controller
                 }
                 //print_r($matches);
 
-                $orderFormat[$num] = $productList[$num] . "%d" . $matches[1];
-                $productNumber[$num] = $matches[2];
-                $productUnit[$num] = $matches[1];
+                $orderFormat[$num] = $matches[1] . "%d" . $matches[2];
+                $productNumber[$num] = $matches[3];
+                $productUnit[$num] = $matches[2];
 
                 $num++;
             }

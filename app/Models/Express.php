@@ -8,6 +8,7 @@ class Express extends Model
 {
     protected $fillable = [
         'contact_phone',
+        'contact_name',
         'product_name',
         'company_code',
         'company_name',
@@ -16,6 +17,7 @@ class Express extends Model
         'status',
         'website_url',
         'website_md5',
+        'is_msg',
     ];
 
     public function getTransitDataAttribute()

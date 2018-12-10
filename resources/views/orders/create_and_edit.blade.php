@@ -31,7 +31,11 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-2">产品</label>
                                 <div class="col-sm-9">
-                                    {!! form_option($productRelate, old('product_id', $order->product_id), 'product_id') !!}
+                                    <select name="product_id" id="product_id" class="form-control">
+                                    @foreach($productList as $product)
+                                        <option value="{{$product['id']}}" attr="{{$product['order_format']}}">{{$product['name']}}</option>
+                                    @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -50,10 +54,10 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">产品详细{{$num}}</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="detail_name{{$num}}" value="{{ old('detail_name'.$num, $order->{'detail_name'.$num}) }}">
+                                        <input type="text" class="form-control" name="detail_name{{$num}}" id="detail_name{{$num}}" value="{{ old('detail_name'.$num, $order->{'detail_name'.$num}) }}">
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="detail_count{{$num}}" value="{{ old('detail_count'.$num, $order->{'detail_count'.$num}) }}">
+                                        {!! form_option($orderDetailCountDict, old('detail_count'.$num, $order->{'detail_count'.$num}), 'detail_count'.$num) !!}
                                     </div>
                                 </div>
                             @endforeach
@@ -65,4 +69,20 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scriptsAfterJs')
+    <script>
+        $(document).ready(function() {
+            function fillFormat() {
+                //console.log($('#product_id').find("option:selected").attr('attr'));
+                $('#detail_name1').val($('#product_id option:selected').attr('attr'));
+            }
+
+            fillFormat();
+            $("#product_id").change(function(){
+                fillFormat();
+            });
+        });
+    </script>
 @endsection

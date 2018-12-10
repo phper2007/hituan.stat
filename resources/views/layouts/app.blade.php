@@ -9,6 +9,7 @@
     <title>@yield('title', '首页') - 兆容团购</title>
     <!-- 样式 -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 <div id="app" class="{{ route_class() }}-page">

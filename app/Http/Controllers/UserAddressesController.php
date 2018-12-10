@@ -4,19 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserAddress;
+use App\Models\Express;
 use App\Http\Requests\UserAddressRequest;
 use GuzzleHttp\Client;
+use App\Librarys\AipOcr;
+use Illuminate\Support\Facades\Storage;
 
 class UserAddressesController extends Controller
 {
     public function index(Request $request)
     {
-        $addresses = (new UserAddress())->orderBy('id', 'desc')->get();
+        $keywords = $request->input('keywords', '');
+
+        $query = (new UserAddress())->orderBy('id', 'desc');
+        if($keywords)
+        {
+            $query->where(function ($query) use ($keywords){
+                $query->where('contact_name', 'like', "%{$keywords}%")
+                    ->orWhere('contact_phone', 'like', "%{$keywords}%")
+                    ->orWhere('address', 'like', "%{$keywords}%");
+            });
+        }
+
+        $addresses = $query->get();
+
         return view('user_addresses.index', [
             'addresses' => $addresses,
+            'keywords' => $keywords,
         ]);
     }
 
+    public function ocr(Request $request)
+    {
+        $content = $request->input('content', '');
+        $errors = [];
+        $address = new \stdClass();
+
+        if($request->isMethod('post') && $request->hasFile('file'))
+        {
+            $config = config('external.baidu');
+
+            $client = new AipOcr($config['app_id'], $config['api_key'], $config['secret_key']);
+
+            $path = $request->file->store('address');
+
+            $result = $client->basicAccurate(Storage::get($path));
+            $result = array_column($result['words_result'], 'words');
+
+            $content = implode("\n", $result);
+
+            return view('user_addresses.standard', compact('content','errors'));
+        }
+
+        return view('user_addresses.ocr', compact('content', 'errors'));
+    }
 
     public function standard(Request $request)
     {
@@ -127,5 +168,13 @@ class UserAddressesController extends Controller
         $user_address->delete();
         // 把之前的 redirect 改成返回空数组
         return [];
+    }
+
+    public function clear()
+    {
+        (new Express())->where('id', '>', 0)->update(['is_msg' => 0]);
+        (new UserAddress())->where('id', '>', 0)->update(['msg_count' => 0]);
+
+        return redirect()->route('user_addresses.index');
     }
 }

@@ -9,6 +9,16 @@
                     收货地址列表
                     {{--<a href="{{ route('user_addresses.create') }}" class="pull-right">新增收货地址</a>--}}
                     <a href="{{ route('user_addresses.standard') }}" class="pull-right">导入地址信息&nbsp;&nbsp;</a>
+                    <a href="{{ route('user_addresses.ocr') }}" class="pull-right">上传图片&nbsp;&nbsp;</a>
+                    <a href="{{ route('user_addresses.clear') }}" class="pull-right">清空消息&nbsp;&nbsp;</a>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" method="get" action="{{route('user_addresses.index')}}">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="keywords" value="{{$keywords}}">
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>
                 </div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped">
@@ -23,7 +33,10 @@
                         <tbody>
                         @foreach($addresses as $address)
                             <tr>
-                                <td>{{ $address->contact_name }}</td>
+                                <td>{{ $address->contact_name }}
+                                    @if($address['msg_count'])
+                                        <i class="icon-bell-alt"></i>{{$address['msg_count']}}
+                                    @endif</td>
                                 <td>{{ $address->full_address }}</td>
                                 <td>{{ $address->contact_phone }}</td><td>
                                     <a href="{{ route('expresses.search', ['user_address' => $address->id]) }}" target="_blank" class="btn btn-info">快递查询</a>

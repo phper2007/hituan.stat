@@ -11,19 +11,34 @@ class OrdersController extends Controller
 {
 
     protected $productRelate = [];
+    protected $productList = [];
 
     public function __construct()
     {
         $productModel = (new Product());
 
         $this->productRelate = $productModel->getRelateByDate();
+        $this->productList = $productModel->getProductList(['group_date' => $productModel->getMaxDate()]);
     }
 
     public function index(Request $request)
     {
-        $orders = (new Order())->orderBy('id', 'desc')->get();
+        $keywords = $request->input('keywords', '');
+
+        $query = (new Order())->orderBy('id', 'desc');
+        if($keywords)
+        {
+            $query->where(function ($query) use ($keywords){
+                $query->where('contact_name', 'like', "%{$keywords}%")
+                    ->orWhere('contact_phone', 'like', "%{$keywords}%")
+                    ->orWhere('product_name', 'like', "%{$keywords}%");
+            });
+        }
+
+        $orders = $query->get();
         return view('orders.index', [
             'orders' => $orders,
+            'keywords' => $keywords,
         ]);
     }
 
@@ -80,8 +95,10 @@ class OrdersController extends Controller
         return view('orders.create_and_edit', [
             'address' => $user_address,
             'productRelate' => $this->productRelate,
+            'productList' => $this->productList,
             'order' => $order,
             'orderCountDict' => config('project.orderCountDict'),
+            'orderDetailCountDict' => config('project.orderDetailCountDict'),
         ]);
     }
 
@@ -121,9 +138,9 @@ class OrdersController extends Controller
 
         if(empty($data['detail_name1']))
         {
-            $data['detail_count1'] = $data['detail_count1'] ? $data['detail_count1'] : $product['product_number']*$data['sell_count'];
             $data['detail_name1'] = $product['order_format'];
         }
+        $data['detail_count1'] = $data['detail_count1']>0 ? $data['detail_count1'] : $product['product_number']*$data['sell_count'];
 
         $order = (new Order())->create($data);
 

@@ -23,6 +23,11 @@ class Product extends Model
         return $maxDate ? $maxDate : date('Y-m-d');
     }
 
+    public function getProductList($where)
+    {
+        return $this->where($where)->orderBy('id', 'asc')->get()->toArray();
+    }
+
     public function getRelateByDate($date = false)
     {
         $date = $date ? $date : $this->getMaxDate();
