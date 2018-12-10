@@ -16,7 +16,6 @@
 */
 
 namespace App\Librarys;
-
 use App\Librarys\AipOcrLib\AipBase;
 
 class AipOcr extends AipBase {

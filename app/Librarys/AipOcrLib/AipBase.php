@@ -17,7 +17,6 @@
 namespace App\Librarys\AipOcrLib;
 
 use App\Librarys\AipOcrLib\AipHttpClient;
-use App\Librarys\AipOcrLib\AipBCEUtil;
 
 /**
  * Aip Base 基类
