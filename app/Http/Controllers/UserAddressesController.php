@@ -16,7 +16,7 @@ class UserAddressesController extends Controller
     {
         $keywords = $request->input('keywords', '');
 
-        $query = (new UserAddress())->orderBy('id', 'desc');
+        $query = (new UserAddress())->orderBy('contact_name', 'asc');
         if($keywords)
         {
             $query->where(function ($query) use ($keywords){
@@ -133,7 +133,7 @@ class UserAddressesController extends Controller
 
     public function store(UserAddressRequest $request)
     {
-        $request->user()->addresses()->create($request->only([
+        $result = $request->user()->addresses()->create($request->only([
             'province',
             'city',
             'district',
@@ -142,7 +142,14 @@ class UserAddressesController extends Controller
             'contact_phone',
         ]));
 
-        return redirect()->route('user_addresses.index');
+        if($request->exists('saveAndOrder'))
+        {
+            return redirect()->route('orders.create', ['user_address' => $result->id]);
+        }
+        else
+        {
+            return redirect()->route('user_addresses.index');
+        }
     }
 
     public function edit(UserAddress $user_address)

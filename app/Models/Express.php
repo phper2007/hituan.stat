@@ -18,6 +18,7 @@ class Express extends Model
         'website_url',
         'website_md5',
         'is_msg',
+        'node_time',
     ];
 
     public function getTransitDataAttribute()

@@ -51,7 +51,7 @@ class ExpressService
                 {
                     foreach ($expressData['data']['data'] as $val)
                     {
-                        if(strpos($val['context'], '已签收') !== false)
+                        if(strpos($val['context'], '已签收') !== false || strpos($val['context'], '代签收') !== false)
                         {
                             $status = 'signed';
                             break;
@@ -74,10 +74,9 @@ class ExpressService
                 if(!$hasExpress || ($hasExpress && $status != $hasExpress['status']))
                 {
                     $data['is_msg'] = 1;
+                    $data['node_time'] = date('Y-m-d H:i:s');
 
                     (new UserAddress())->where('id', $userAddress['id'])->increment('msg_count');
-
-                    $expressModel->updateOrCreate(['website_md5' => $md5String], $data);
                 }
 
                 $expressModel->updateOrCreate(['website_md5' => $md5String], $data);

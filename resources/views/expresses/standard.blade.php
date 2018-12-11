@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary">提交</button>
+                            <button name="save" type="submit" class="btn btn-primary">保存</button>
                         </div>
                     </form>
                 </div>

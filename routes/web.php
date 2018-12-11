@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('orders/{order}', 'OrdersController@destroy')->name('orders.destroy');
 
     //快递
+    Route::get('expresses/index', 'ExpressesController@index')->name('expresses.index');
     Route::get('expresses/search/{user_address}', 'ExpressesController@search')->name('expresses.search');
     Route::get('expresses/analysis', 'ExpressesController@analysis')->name('expresses.analysis');
 });

@@ -1,26 +1,26 @@
 @extends('layouts.app')
-@section('title', '快递查询列表')
+@section('title', '快递列表')
 
 @section('content')
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    快递查询列表
+                    快递列表
                 </div>
-                <div class="alert alert-success" role="alert">
-                    {{$address->contact_name}} {{$address->contact_phone}}<br>
-                    {{$address->full_address}}
+                <div class="panel-body">
+                    <form class="form-inline" method="get" action="{{route('expresses.index')}}">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="keywords" value="{{$keywords}}">
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>
                 </div>
 
-                <h2>共查询到{{$expressList->count()}}条快递</h2>
-
-                @include('_list', ['expressList' => $expressList])
-
+                @include('expresses._list', ['expressList' => $expresses])
             </div>
         </div>
     </div>
-
 
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -37,4 +37,4 @@
 
 @endsection
 
-@include('_after_js')
+@include('expresses._after_js')

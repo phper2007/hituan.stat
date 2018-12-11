@@ -45,7 +45,10 @@ class updateExpress extends Command
         foreach ($userList as $user)
         {
             $expressService->searchExpress($user);
+            //避免快查
+            sleep(rand(5, 10));
         }
-        echo 'ok';
+
+        echo date('Y-m-d H:i:s') . " ok!\n";
     }
 }

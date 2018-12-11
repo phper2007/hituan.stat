@@ -57,7 +57,8 @@
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">提交</button>
+                                <button name="save" type="submit" class="btn btn-info">保存</button>
+                                <button name="saveAndOrder" type="submit" class="btn btn-primary">保存并下单</button>
                             </div>
                         </form>
                 </div>

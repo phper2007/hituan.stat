@@ -22,6 +22,29 @@ class ExpressesController extends Controller
         $this->productRelate = $productModel->getRelateByDate();
     }
 
+    public function index(Request $request)
+    {
+        $keywords = $request->input('keywords', '');
+
+        $query = (new Express())->orderBy('node_time', 'desc')->orderBy('id', 'desc');
+        if($keywords)
+        {
+            $query->where(function ($query) use ($keywords){
+                $query->where('contact_name', 'like', "%{$keywords}%")
+                    ->orWhere('contact_phone', 'like', "%{$keywords}%")
+                    ->orWhere('express_no', 'like', "%{$keywords}%")
+                    ->orWhere('product_name', 'like', "%{$keywords}%");
+            });
+        }
+
+        $expresses = $query->get();
+        return view('expresses.index', [
+            'expresses' => $expresses,
+            'keywords' => $keywords,
+            'expressStatusDict' => config('project.expressStatusDict'),
+        ]);
+    }
+
     public function search(UserAddress $user_address)
     {
         $expressModel = new Express();
