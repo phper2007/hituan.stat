@@ -15,7 +15,7 @@
 
                 <h2>共查询到{{$expressList->count()}}条快递</h2>
 
-                @include('_list', ['expressList' => $expressList])
+                @include('expresses._list', ['expressList' => $expressList])
 
             </div>
         </div>
@@ -37,4 +37,4 @@
 
 @endsection
 
-@include('_after_js')
+@include('expresses._after_js')
