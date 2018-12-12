@@ -25,6 +25,9 @@
                             <button type="submit" class="btn btn-primary">提交</button>
                         </div>
                     </form>
+                    <div class="row">
+                        {!! implode('，', $productSerialNumber) !!}
+                    </div>
                 </div>
             </div>
         </div>

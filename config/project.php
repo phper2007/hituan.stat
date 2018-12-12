@@ -32,6 +32,7 @@ return [
     'expressStatusDict' => [
         'fail' => '未找到运单',
         'transit' => '运输中',
+        'locker' => '快递柜',
         'signed' => '已签收',
     ],
 ];

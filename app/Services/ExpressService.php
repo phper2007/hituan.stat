@@ -51,7 +51,15 @@ class ExpressService
                 {
                     foreach ($expressData['data']['data'] as $val)
                     {
-                        if(strpos($val['context'], '已签收') !== false || strpos($val['context'], '代签收') !== false)
+                        if(strpos($val['context'], '已签收') !== false
+                            || strpos($val['context'], '代签收') !== false
+                            || strpos($val['context'], '完成取件') !== false
+                        )
+                        {
+                            $status = 'signed';
+                            break;
+                        }
+                        elseif(strpos($val['context'], '取货码') !== false)
                         {
                             $status = 'signed';
                             break;

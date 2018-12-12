@@ -21,7 +21,9 @@ class ProductsController extends Controller
 
     public function importOffer()
     {
-        return view('products.import_offer');
+        return view('products.import_offer', [
+            'productSerialNumber' => config('project.productSerialNumber')
+        ]);
     }
 
     public function importOfferAnalysis(Request $request)
