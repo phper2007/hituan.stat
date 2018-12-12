@@ -44,6 +44,11 @@ class Order extends Model
 
     public function getCheckInfoAttribute()
     {
+        if(in_array($this->province, ['北京', '重庆', '天津', '重庆']))
+        {
+            $this->province = '';
+        }
+
         $string = "{$this->contact_name}。{$this->contact_phone}。{$this->province}{$this->city}{$this->district}{$this->address}。";
         $nameArr = [];
         $sellCount = 0;
