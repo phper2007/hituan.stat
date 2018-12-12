@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('updateExpress')->cron('1 7,12,16 * * * *');
+        $schedule->command('updateExpress')->cron('1 7,12,16,19 * * * *');
     }
 
     /**
