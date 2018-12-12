@@ -47,6 +47,8 @@ Route::group(['middleware' => 'auth'], function() {
     //订单信息
     Route::match(['get', 'post'], 'orders', 'OrdersController@index')->name('orders.index');
 
+    Route::match(['get', 'post'], 'stat', 'OrdersController@stat')->name('orders.stat');
+
     Route::get('orders/check/{order}', 'OrdersController@check')->name('orders.check');
     Route::get('orders/bill', 'OrdersController@bill')->name('orders.bill');
 

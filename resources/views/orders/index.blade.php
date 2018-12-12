@@ -7,7 +7,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     订单列表
-                    <a href="{{ route('orders.bill') }}" class="pull-right">报单</a>
+                    <a href="{{ route('orders.bill') }}" class="pull-right">报单&nbsp;&nbsp;</a>
+                    <a href="{{ route('orders.stat') }}" class="pull-right">本月业绩&nbsp;&nbsp;</a>
                 </div>
                 <div class="panel-body">
                     <form class="form-inline" method="get" action="{{route('orders.index')}}">

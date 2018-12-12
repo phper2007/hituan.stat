@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\UserAddress;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\TempStat;
 
 class OrdersController extends Controller
 {
@@ -42,12 +43,28 @@ class OrdersController extends Controller
         ]);
     }
 
+    public function stat(Request $request)
+    {
+        $tempStatModel = new TempStat();
+        if($request->isMethod('post'))
+        {
+            $data = $request->only(['month_price', 'month_profit']);
+            $tempStatModel->create($data);
+
+            return redirect()->route('orders.index');
+        }
+
+        return view('orders.stat', ['monthStat' => $tempStatModel->getLastData()]);
+    }
+
     public function bill()
     {
         $productModel = (new Product());
         $maxDate = $productModel->getMaxDate();
 
         $productList = $productModel->where('group_date', $maxDate)->get()->keyBy('id')->toArray();
+
+        $monthStat = (new TempStat())->getLastData();
 
         $orders = (new Order())
             ->where('group_date', $maxDate)
@@ -60,6 +77,8 @@ class OrdersController extends Controller
             'sellCount' => 0,
         ];
 
+        $month = [];
+
         foreach ($orders as $order)
         {
             $today['costPrice'] += $order['cost_price'];
@@ -67,6 +86,9 @@ class OrdersController extends Controller
             $today['freight'] += $order['freight'];
             $today['sellCount'] += $order['sell_count'];
         }
+
+        $month['price'] = $monthStat['month_price'] + $today['costPrice'];
+        $month['profit'] = $monthStat['month_profit'] + $today['profit'];
 
         $orderGroup = $orders->groupBy('product_id');
 
@@ -82,6 +104,8 @@ class OrdersController extends Controller
             'maxDate' => $maxDate,
             'orderGroup' => $orderGroup,
             'today' => $today,
+            'month' => $month,
+            'monthStat' => $monthStat,
             'productSum' => $productSum,
             'productRelate' => $productModel->getOrderFormatByDate($maxDate),
         ]);
