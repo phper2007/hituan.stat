@@ -133,14 +133,35 @@ class UserAddressesController extends Controller
 
     public function store(UserAddressRequest $request)
     {
-        $result = $request->user()->addresses()->create($request->only([
+        $data = $request->only([
             'province',
             'city',
             'district',
             'address',
             'contact_name',
             'contact_phone',
-        ]));
+        ]);
+
+        $hasData = UserAddress::where('province', $data['province'])
+            ->where('city', $data['city'])
+            ->where('district', $data['district'])
+            ->where('address', $data['address'])
+            ->where('contact_phone', $data['contact_phone'])
+            ->first();
+
+        if($hasData)
+        {
+            if($request->exists('saveAndOrder'))
+            {
+                return redirect()->route('orders.create', ['user_address' => $hasData->id]);
+            }
+            else
+            {
+                return redirect()->route('user_addresses.index', ['keywords' => $hasData->contact_phone]);
+            }
+        }
+
+        $result = $request->user()->addresses()->create($data);
 
         if($request->exists('saveAndOrder'))
         {
