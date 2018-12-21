@@ -26,7 +26,7 @@ class UserAddressesController extends Controller
             });
         }
 
-        $addresses = $query->get();
+        $addresses = $query->paginate(20);
 
         return view('user_addresses.index', [
             'addresses' => $addresses,

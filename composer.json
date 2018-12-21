@@ -31,7 +31,8 @@
         "files": [
             "bootstrap/helpers/string.helper.php",
             "bootstrap/helpers/form.helper.php",
-            "bootstrap/helpers/project.helper.php"
+            "bootstrap/helpers/project.helper.php",
+            "bootstrap/helpers/array.helper.php"
         ]
     },
     "autoload-dev": {

@@ -13,11 +13,16 @@
                         <div class="form-group">
                             <input type="text" class="form-control" name="keywords" value="{{$keywords}}">
                         </div>
+                        <div class="form-group">
+                            {!! form_option($expressStatusDict, $status, 'status', '全部') !!}
+                        </div>
                         <button type="submit" class="btn btn-default">搜索</button>
                     </form>
                 </div>
 
                 @include('expresses._list', ['expressList' => $expresses])
+
+                <div class="row" align="center">{{ $expresses->links() }}</div>
             </div>
         </div>
     </div>

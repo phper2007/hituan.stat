@@ -25,6 +25,8 @@ class ExpressesController extends Controller
     public function index(Request $request)
     {
         $keywords = $request->input('keywords', '');
+        $status = $request->input('status', '');
+
 
         $query = (new Express())->orderBy('node_time', 'desc')->orderBy('id', 'desc');
         if($keywords)
@@ -37,10 +39,16 @@ class ExpressesController extends Controller
             });
         }
 
-        $expresses = $query->get();
+        if($status !== '' && !is_null($status))
+        {
+            $query->where('status', $status);
+        }
+
+        $expresses = $query->paginate(20);
         return view('expresses.index', [
             'expresses' => $expresses,
             'keywords' => $keywords,
+            'status' => $status,
             'expressStatusDict' => config('project.expressStatusDict'),
         ]);
     }

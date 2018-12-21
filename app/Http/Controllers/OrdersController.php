@@ -36,7 +36,7 @@ class OrdersController extends Controller
             });
         }
 
-        $orders = $query->get();
+        $orders = $query->paginate(20);
         return view('orders.index', [
             'orders' => $orders,
             'keywords' => $keywords,

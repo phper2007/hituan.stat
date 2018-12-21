@@ -50,6 +50,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="row" align="center">{{ $addresses->links() }}</div>
             </div>
         </div>
     </div>

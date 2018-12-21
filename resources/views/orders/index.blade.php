@@ -45,6 +45,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="row" align="center">{{ $orders->links() }}</div>
             </div>
         </div>
     </div>
