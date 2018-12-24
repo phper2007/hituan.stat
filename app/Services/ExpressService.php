@@ -54,6 +54,7 @@ class ExpressService
                         if(strpos($val['context'], '已签收') !== false
                             || strpos($val['context'], '代签收') !== false
                             || strpos($val['context'], '完成取件') !== false
+                            || strpos($val['context'], '快递柜 签收') !== false
                         )
                         {
                             $status = 'signed';
