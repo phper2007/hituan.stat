@@ -40,15 +40,19 @@
                         今日运费合计：{{$today['freight']}}，未计算到合计金额中。
                     </p>
                         <div class="form-group text-center">
-                            <form class="form-horizontal" role="form" action="{{ route('orders.stat') }}" method="post">
-                                <!-- 引入 csrf token 字段 -->
-                                {{ csrf_field() }}
-                                <input type="hidden" class="form-control" name="month_price" value="{{$month['price']}}">
-                                <input type="hidden" class="form-control" name="month_profit" value="{{$month['profit']}}">
-                                <a href="{{ route('orders.index') }}" class="btn btn-info">返回订单信息</a>
-                                <button type="submit" class="btn btn-success">更新统计基数</button>
-                            </form>
+                            <a href="{{ route('orders.index') }}" class="btn btn-info">返回订单信息</a>
                         </div>
+
+                    <div class="form-group text-right">
+
+                        <form class="form-horizontal" role="form" action="{{ route('orders.stat') }}" method="post">
+                            <!-- 引入 csrf token 字段 -->
+                            {{ csrf_field() }}
+                            <input type="hidden" class="form-control" name="month_price" value="{{$month['price']}}">
+                            <input type="hidden" class="form-control" name="month_profit" value="{{$month['profit']}}">
+                            <button type="submit" class="btn btn-success btn-xs">更新统计基数</button>
+                        </form>
+                    </div>
                 </div>
 
 

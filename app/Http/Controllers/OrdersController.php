@@ -7,6 +7,7 @@ use App\Models\UserAddress;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\TempStat;
+use App\Services\OrderService;
 
 class OrdersController extends Controller
 {
@@ -57,7 +58,7 @@ class OrdersController extends Controller
         return view('orders.stat', ['monthStat' => $tempStatModel->getLastData()]);
     }
 
-    public function bill()
+    public function bill(OrderService $orderService)
     {
         $productModel = (new Product());
         $maxDate = $productModel->getMaxDate();
@@ -70,25 +71,9 @@ class OrdersController extends Controller
             ->where('group_date', $maxDate)
             ->orderBy('id', 'desc')->get();
 
-        $today = [
-            'costPrice' => 0,
-            'profit' => 0,
-            'freight' => 0,
-            'sellCount' => 0,
-        ];
+        $today = $orderService->getDayStat($orders);
 
-        $month = [];
-
-        foreach ($orders as $order)
-        {
-            $today['costPrice'] += $order['cost_price'];
-            $today['profit'] += $order['sell_price'] - $order['cost_price'];
-            $today['freight'] += $order['freight'];
-            $today['sellCount'] += $order['sell_count'];
-        }
-
-        $month['price'] = $monthStat['month_price'] + $today['costPrice'];
-        $month['profit'] = $monthStat['month_profit'] + $today['profit'];
+        $month = $orderService->getMonthStat($today, $monthStat);
 
         $orderGroup = $orders->groupBy('product_id');
 
