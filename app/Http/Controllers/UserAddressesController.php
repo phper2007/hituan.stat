@@ -71,11 +71,17 @@ class UserAddressesController extends Controller
         {
             $url = config('external.sf.standardUrl');
 
-            $client = new Client();
+            $data_string = "address=".urlencode($content);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-            $res = $client->request('POST', $url . urlencode($content));
-            $responseContent = $res->getBody();
-            $sfArr = json_decode($responseContent, true);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+            $data = curl_exec($ch);
+            curl_close($ch);
+
+            $sfArr = json_decode($data, true);
             $data = $sfArr['obj'];
 
             if(!$data['personalName'])
